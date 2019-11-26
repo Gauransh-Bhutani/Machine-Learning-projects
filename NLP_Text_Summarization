@@ -1,0 +1,48 @@
+# Text summarization refers to the technique of shortening long pieces of text. 
+# The intention is to create a coherent and fluent summary having only the main points outlined in the document.
+# Text Summarization is a common proble in Natural Language Processing.
+# The 5 steps to perform Text summarization are as follows:
+# 1. Tokenize sentences
+# 2. Create Frequency distribution assigned weighted averages of the words in accordance with the sentence
+# 3. Find the score
+# 4. find the threshold
+# 5. generate results
+
+Links used:
+
+https://becominghuman.ai/text-summarization-in-5-steps-using-nltk-65b21e352b65
+
+https://stackabuse.com/text-summarization-with-nltk-in-python/
+
+https://pypi.org/project/text-summarizer/
+
+
+para = '''Bayerische Motoren Werke AG, commonly referred to as BMW (German pronunciation: [ˈbeːˈʔɛmˈveː] (About this soundlisten)), is a German multinational company which produces automobiles and motorcycles. The company was founded in 1916 as a manufacturer of aircraft engines, which it produced from 1917 until 1918 and again from 1933 to 1945.
+
+Automobiles are marketed under the brands BMW, Mini and Rolls-Royce, and motorcycles are marketed under the brand BMW Motorrad. In 2015, BMW was the world's twelfth-largest producer of motor vehicles, with 2,279,503 vehicles produced.[2]
+
+BMW is headquartered in Munich and produces motor vehicles in Germany, Brazil, China, India, South Africa, the United Kingdom, the United States and Mexico. BMW has significant motorsport history, especially in touring cars, Formula 1, sports cars and the Isle of Man TT.'''
+import string
+import operator
+import nltk
+word_token = [i for i in nltk.word_tokenize(para) if (i not in string.punctuation and i not in stopwords.words('english') and not i.isdigit())]
+sent_token = nltk.sent_tokenize(para)
+freq = nltk.FreqDist(word_token)
+freq = {t:dict(freq)[t]/max(dict(freq).values()) for t in dict(freq)}
+sent_score = []
+
+for s in sent_token:
+  w_ = [w for w in nltk.word_tokenize(s) if(w not in string.punctuation and w not in stopwords.words('english') and not w.isdigit())]
+  
+  w_freq = [freq[i] for i in w_]
+
+  # print(w_freq)
+sent_score.append(sum(w_freq))
+
+main_sents = {i[0] : i[1] for i in zip(sent_token,sent_score)}
+ 
+# print(main_sents)
+
+sorted_sents = sorted(main_sents.items(), key=operator.itemgetter(1))[::-1]
+print('\n'.join([i for i,s in sorted_sents[:2]]))
+
