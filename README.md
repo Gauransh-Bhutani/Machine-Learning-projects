@@ -2,6 +2,6 @@
 Machine Learning Projects using python scikit learn and R
 # Linear Regression
 
-#Logistic Regression
+# Logistic Regression
 
-#K Nearest Neighbours
+# K Nearest Neighbours
