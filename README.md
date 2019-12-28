@@ -1,5 +1,5 @@
 # Machine-Learning-projects
-Machine Learning Projects using python scikit learn and R
+Machine Learning Projects using python scikit learn.
 # Linear Regression
 
 # Logistic Regression
